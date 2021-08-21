@@ -3,14 +3,15 @@ const HOST_NAME = 'https://api.twitch.tv/helix'
 
 export default async (req, res) => {
   try {
-    if (req.method == 'POST') {
+    if (req.method === 'POST') {
       const { data } = req.body
+      if (data) {
+        const channelData = await getTwitchChannel(data)
+        if (channelData) {
+          console.log("channel data:  ", channelData)
+          res.status(200).json({ data: channelData })
+        }
 
-      const channelData = await getTwitchChannel(data)
-
-      if (channelData) {
-        console.log("CHANNEL DATA: ", channelData)
-        res.status(200).json({data: channelData})
       }
       res.status(404).send()
     }
@@ -19,6 +20,7 @@ export default async (req, res) => {
     res.status(500).send()
   }
 }
+
 
 //Actions
 const getTwitchAccessToken = async () => {

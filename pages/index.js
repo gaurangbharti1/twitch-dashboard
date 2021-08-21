@@ -32,7 +32,7 @@ const Home = () => {
 
       console.log("From the server: ", json.data)
 
-      setFavoriteChannels(prevState => [...prevState, value])
+      setFavoriteChannels(prevState => [...prevState, json.data])
 
       event.target.elements.name.value = ""
     }
